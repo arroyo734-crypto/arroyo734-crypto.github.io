@@ -1,70 +1,442 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="google-site-verification" content="_7Kr-rF1HdYRT4WnrJyFCjI-FQu53KlEKkD_HjtAaVw" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jarvis Cash 2.0</title>
-    <style>
-      body {
-        background: #fff;
-        color: #000;
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding-top: 40px;
-        margin: 0;
-      }
-      a { text-decoration: none; color: inherit; }
-      .header { border-bottom: 2px solid #000; padding-bottom: 20px; margin-bottom: 20px; }
-      h1 { margin: 0; font-size: 2.5rem; }
-      .description { margin-top: 10px; font-size: 1.2rem; max-width: 800px; margin-left: auto; margin-right: auto; }
-      .btn { font-size: 80px; background: none; border: none; cursor: pointer; display: block; margin: 20px auto; }
-      .rev-text { font-size: 32px; font-weight: bold; margin-top: 20px; color: #000; border: 2px solid #000; display: inline-block; padding: 10px; border-radius: 10px; }
-      .crown { color: gold; font-size: 24px; margin-top: 60px; border: 2px solid gold; padding: 15px; display: inline-block; border-radius: 10px; cursor: pointer; }
-      .tabs { margin: 40px auto; max-width: 600px; display: flex; justify-content: space-around; }
-      .tab { padding: 10px 20px; border: 2px solid #000; border-radius: 5px; position: relative; cursor: pointer; }
-      .tab::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 2px; background: lime; display: none; }
-      .tab.active::after { display: block; }
-      .cursor { width: 10px; height: 24px; background: lime; display: inline-block; vertical-align: middle; margin-left: 4px; }
-      .footer { margin-top: 60px; font-size: 0.9rem; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="_7Kr-rF1HdYRT4WnrJyFCjI-FQu53KlEKkD_HjtAaVw" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Keyz AI · AI tools that actually save you time</title>
+  <meta name="description" content="Short, no-fluff videos on the AI tools worth using for school, side hustles and creative work. Links, videos and the full list of AI tools I use.">
+  <meta property="og:title" content="Keyz AI">
+  <meta property="og:description" content="AI tools that actually save you time. Videos, links and my full toolkit.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f2f2f7;
+      --card: #ffffff;
+      --text: #0a0a0a;
+      --muted: #5f6368;
+      --line: #e3e3e8;
+      --blue: #0a66ff;
+      --grad: linear-gradient(120deg, #7b2ff7 0%, #f107a3 50%, #ff8a00 100%);
+      --radius: 22px;
+      --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-size: 17px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: calc(84px + env(safe-area-inset-bottom));
+    }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3 { margin: 0; letter-spacing: -0.02em; }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+
+    /* top bar */
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(255,255,255,.85);
+      backdrop-filter: saturate(180%) blur(16px);
+      -webkit-backdrop-filter: saturate(180%) blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar .wrap { height: 60px; display: flex; align-items: center; gap: 12px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; }
+    .brand-icon { width: 34px; height: 34px; border-radius: 10px; background: var(--grad); color: #fff; display: grid; place-items: center; font-size: 17px; font-weight: 800; }
+    .topbar .sub-btn { margin-left: auto; }
+    .desk-tabs { display: none; gap: 4px; margin-left: 24px; }
+    .desk-tabs a { padding: 8px 14px; border-radius: 999px; font-weight: 600; font-size: 15px; color: var(--muted); }
+    .desk-tabs a:hover { background: var(--bg); color: var(--text); }
+
+    /* buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      min-height: 48px; padding: 0 22px; border-radius: 999px;
+      font: inherit; font-weight: 700; font-size: 16px; border: 0; cursor: pointer;
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn.red { background: #ff0033; color: #fff; }
+    .btn.red:hover { filter: brightness(1.08); }
+    .btn.ghost { background: var(--card); color: var(--text); box-shadow: inset 0 0 0 1.5px var(--line); }
+    .btn.small { min-height: 38px; padding: 0 16px; font-size: 14px; }
+    .btn svg { width: 20px; height: 20px; }
+
+    /* hero */
+    .hero {
+      margin-top: 16px;
+      border-radius: 28px;
+      background: var(--grad);
+      color: #fff;
+      padding: 32px 24px 28px;
+      position: relative; overflow: hidden;
+    }
+    .hero::after {
+      content: ""; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px;
+      border-radius: 50%; background: rgba(255,255,255,.14);
+    }
+    .hero-top { display: flex; align-items: center; gap: 16px; position: relative; z-index: 1; }
+    .avatar {
+      width: 84px; height: 84px; flex: none; border-radius: 50%;
+      background: #fff; color: #f107a3; display: grid; place-items: center;
+      font-size: 36px; font-weight: 800; border: 3px solid rgba(255,255,255,.7); overflow: hidden;
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .hero h1 { font-size: clamp(30px, 7vw, 42px); font-weight: 800; line-height: 1.05; }
+    .handle { opacity: .9; font-weight: 600; margin-top: 4px; }
+    .tagline { position: relative; z-index: 1; font-size: 20px; font-weight: 600; line-height: 1.35; margin: 20px 0 0; max-width: 520px; }
+    .tagline mark { background: rgba(255,255,255,.25); color: #fff; padding: 0 6px; border-radius: 6px; }
+    .hero .cta-row { position: relative; z-index: 1; display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+    .hero .btn.ghost { background: rgba(255,255,255,.18); color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.5); }
+    .stats { position: relative; z-index: 1; display: flex; gap: 24px; margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.3); }
+    .stats div { font-size: 13px; opacity: .9; font-weight: 600; }
+    .stats strong { display: block; font-size: 22px; font-weight: 800; opacity: 1; }
+
+    /* sections */
+    section { padding-top: 36px; scroll-margin-top: 70px; }
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+    .section-head h2 { font-size: 26px; font-weight: 800; }
+    .section-head span { color: var(--muted); font-size: 15px; font-weight: 600; }
+    .card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); }
+
+    /* links: grouped list, like iOS settings */
+    .links { overflow: hidden; }
+    .link { display: flex; align-items: center; gap: 14px; padding: 14px 18px; min-height: 72px; }
+    .link + .link { border-top: 1px solid var(--line); }
+    .link:hover { background: #fafafa; }
+    .link .icon { width: 44px; height: 44px; flex: none; border-radius: 12px; display: grid; place-items: center; font-size: 22px; color: #fff; font-weight: 800; }
+    .link .label { font-weight: 700; font-size: 17px; }
+    .link .sub { color: var(--muted); font-size: 14px; }
+    .link .chev { margin-left: auto; color: #b0b0b8; font-size: 22px; font-weight: 600; }
+    .link.soon { pointer-events: none; }
+    .link.soon .label, .link.soon .icon { opacity: .45; }
+    .pill-soon { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--muted); background: var(--bg); padding: 4px 10px; border-radius: 999px; }
+
+    /* videos: horizontal swipe row */
+    .rail {
+      display: grid; grid-auto-flow: column; grid-auto-columns: min(82%, 340px); gap: 14px;
+      overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 16px 12px; margin: 0 -16px;
+      scrollbar-width: none;
+    }
+    .rail::-webkit-scrollbar { display: none; }
+    .video { scroll-snap-align: start; overflow: hidden; }
+    .thumb {
+      position: relative; aspect-ratio: 16 / 9; width: 100%; display: block;
+      background: #222 center / cover no-repeat; border: 0; padding: 0; cursor: pointer;
+    }
+    .thumb .play {
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+      width: 64px; height: 46px; border-radius: 14px; background: #ff0033;
+      display: grid; place-items: center;
+    }
+    .thumb .play::before { content: ""; margin-left: 4px; border-style: solid; border-width: 10px 0 10px 16px; border-color: transparent transparent transparent #fff; }
+    .thumb.placeholder { cursor: default; display: grid; place-items: center; }
+    .thumb.placeholder .ph-label { color: #fff; font-weight: 800; font-size: 20px; text-align: center; padding: 0 20px; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,.25); }
+    .thumb.placeholder .badge { position: absolute; left: 12px; top: 12px; background: rgba(0,0,0,.55); color: #fff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; }
+    .thumb iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .video .meta { padding: 14px 16px 18px; }
+    .video h3 { font-size: 17px; font-weight: 700; line-height: 1.3; }
+    .video p { margin: 6px 0 0; color: var(--muted); font-size: 15px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .chip { font-size: 13px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--bg); color: var(--text); }
+
+    /* tools: app store list */
+    .filters { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 0 -16px 14px; padding: 0 16px; }
+    .filters::-webkit-scrollbar { display: none; }
+    .filter {
+      flex: none; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer;
+      min-height: 40px; padding: 0 16px; border-radius: 999px;
+      background: var(--card); color: var(--text); border: 0; box-shadow: inset 0 0 0 1.5px var(--line);
+    }
+    .filter[aria-pressed="true"] { background: var(--text); color: #fff; box-shadow: none; }
+    .tools-list { overflow: hidden; }
+    .tool { display: flex; align-items: center; gap: 14px; padding: 14px 18px; }
+    .tool + .tool { border-top: 1px solid var(--line); }
+    .tool .rank { width: 20px; flex: none; font-weight: 800; color: var(--muted); font-size: 16px; text-align: center; }
+    .tool .logo {
+      width: 60px; height: 60px; flex: none; border-radius: 15px;
+      display: grid; place-items: center; font-size: 26px; font-weight: 800; color: #fff;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
+    }
+    .tool .info { min-width: 0; flex: 1; }
+    .tool .name { font-weight: 700; font-size: 17px; }
+    .tool .cat { color: var(--muted); font-size: 13px; font-weight: 600; }
+    .tool .why { color: var(--muted); font-size: 14px; margin-top: 2px; }
+    .get {
+      flex: none; min-width: 72px; min-height: 34px; padding: 0 16px; border-radius: 999px;
+      background: var(--bg); color: var(--blue); font-weight: 800; font-size: 15px;
+      display: grid; place-items: center;
+    }
+    .tool:hover .get { background: var(--blue); color: #fff; }
+    .price-note { display: block; text-align: center; font-size: 11px; color: var(--muted); margin-top: 3px; font-weight: 600; }
+
+    /* about */
+    .about { padding: 22px; font-size: 17px; }
+    .about p { margin: 0 0 12px; }
+    .about p:last-child { margin: 0; }
+
+    footer { padding: 36px 0 20px; text-align: center; color: var(--muted); font-size: 14px; }
+
+    /* bottom tab bar (phone) */
+    .tabbar {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: saturate(180%) blur(16px);
+      -webkit-backdrop-filter: saturate(180%) blur(16px);
+      border-top: 1px solid var(--line);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .tabbar .wrap { display: grid; grid-template-columns: repeat(4, 1fr); height: 64px; }
+    .tabbar a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 12px; font-weight: 700; color: var(--muted); }
+    .tabbar a.on { color: var(--text); }
+    .tabbar svg { width: 24px; height: 24px; }
+
+    @media (max-width: 480px) {
+      .tool .rank { display: none; }
+      .tool { padding: 14px 14px; gap: 12px; }
+      .tool .logo { width: 54px; height: 54px; font-size: 24px; }
+    }
+    @media (min-width: 820px) {
+      .swipe-hint { display: none; }
+      body { padding-bottom: 0; }
+      .tabbar { display: none; }
+      .desk-tabs { display: flex; }
+      .hero { padding: 44px 40px 36px; margin-top: 24px; }
+      .rail { grid-auto-flow: row; grid-template-columns: 1fr 1fr; overflow: visible; margin: 0; padding: 4px 0 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-      <h1>Jarvis Cash 2.0</h1>
-      <div class="description">
-        <p>Jarvis Cash 2.0 is a lightweight web-app that lets you connect a crypto wallet and track revenue in real time.</p>
+  <!--
+    ============================================================
+    EDIT ME: everything on the page comes from the CHANNEL object
+    in the <script> at the bottom of this file. Change the text,
+    links, videos and tools there; you don't need to touch the HTML.
+    ============================================================
+  -->
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="#top"><span class="brand-icon" id="brand-icon"></span><span id="brand-name"></span></a>
+      <nav class="desk-tabs">
+        <a href="#links">Links</a>
+        <a href="#videos">Videos</a>
+        <a href="#tools">AI tools</a>
+        <a href="#about">About</a>
+      </nav>
+      <a class="btn red small sub-btn" id="subscribe-top" target="_blank" rel="noopener">Subscribe</a>
+    </div>
+  </header>
+
+  <main class="wrap" id="top">
+    <div class="hero">
+      <div class="hero-top">
+        <div class="avatar" id="avatar"></div>
+        <div>
+          <h1 id="name"></h1>
+          <div class="handle" id="handle"></div>
+        </div>
       </div>
+      <p class="tagline" id="tagline"></p>
+      <div class="cta-row">
+        <a class="btn red" id="subscribe" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
+          Subscribe
+        </a>
+        <a class="btn ghost" href="#tools">My AI toolkit</a>
+      </div>
+      <div class="stats" id="stats"></div>
     </div>
-    <button class="btn" onclick="addRev()">➕</button>
-    <div id="counter" class="rev-text">CASH: $0</div>
-    <div class="tabs">
-      <div class="tab active">Home<div class="cursor"></div></div>
-      <div class="tab">Docs<div class="cursor"></div></div>
-      <div class="tab">Support<div class="cursor"></div></div>
+
+    <section id="links">
+      <div class="section-head"><h2>Follow me</h2><span>Everywhere I post</span></div>
+      <div class="card links" id="links-list"></div>
+    </section>
+
+    <section id="videos">
+      <div class="section-head"><h2>Latest videos</h2><span class="swipe-hint">Swipe →</span></div>
+      <div class="rail" id="videos-list"></div>
+    </section>
+
+    <section id="tools">
+      <div class="section-head"><h2>AI tools I use</h2><span id="tools-count"></span></div>
+      <div class="filters" id="filters" role="group" aria-label="Filter tools by category"></div>
+      <div class="card tools-list" id="tools-list"></div>
+    </section>
+
+    <section id="about">
+      <div class="section-head"><h2>About</h2></div>
+      <div class="card about" id="about-text"></div>
+    </section>
+
+    <footer id="footer"></footer>
+  </main>
+
+  <nav class="tabbar" aria-label="Sections">
+    <div class="wrap">
+      <a href="#top" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Home</a>
+      <a href="#videos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3z" fill="currentColor"/></svg>Videos</a>
+      <a href="#tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>AI tools</a>
+      <a href="#links"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>Links</a>
     </div>
-    <br>
-    <div class="crown" onclick="connectWallet()">👑 CONNECT CRYPTO WALLET</div>
-    <div class="footer">
-      <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a>
-    </div>
-    <script>
-      let total = parseFloat(localStorage.getItem('rev')) || 0;
-      document.getElementById('counter').innerText = 'CASH: $' + total;
-      function addRev() {
-        total = parseFloat(total) + 10;
-        localStorage.setItem('rev', total);
-        document.getElementById('counter').innerText = 'CASH: $' + total;
-      }
-      async function connectWallet() {
-        if (window.ethereum) {
-          try {
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            alert("Wallet Linked: " + accounts[0].substring(0,6) + "...");
-            document.querySelector('.crown').innerText = "💎 WALLET ACTIVE";
-          } catch (e) { alert("Connection Denied"); }
-        } else { alert("MetaMask not found! Open this in your Wallet Browser."); }
-      }
-    </script>
+  </nav>
+
+  <script>
+    // ============================================================
+    // EDIT ME. Leave a url as "" to show that link as "coming soon".
+    // For videos, paste the YouTube video id (the part after watch?v=).
+    // Leave id as "" to show a "coming soon" card.
+    // ============================================================
+    const CHANNEL = {
+      name: "Keyz AI",
+      handle: "@keyzai",
+      initials: "K",
+      avatar: "",                 // optional image url, e.g. "avatar.jpg"
+      tagline: "AI tools that <mark>actually save you time</mark>. Short, no-fluff breakdowns for school, side hustles and creative work.",
+      youtube: "https://www.youtube.com/@keyzai",
+
+      links: [
+        { icon: "▶️", label: "YouTube", color: "#ff0033",   sub: "New videos every week",       url: "https://www.youtube.com/@keyzai" },
+        { icon: "🎵", label: "TikTok", color: "#111111",    sub: "60-second tool demos",        url: "" },
+        { icon: "📸", label: "Instagram", color: "#e1306c", sub: "Reels and tool drops",        url: "" },
+        { icon: "𝕏", label: "X", color: "#000000",         sub: "Hot takes on new AI releases", url: "" },
+        { icon: "✉️", label: "Newsletter", color: "#0a66ff", sub: "One email a week. The 3 best tools I found.", url: "" },
+        { icon: "🤝", label: "Work with me", color: "#00b86b", sub: "Sponsorships and collabs",  url: "" }
+      ],
+
+      videos: [
+        { id: "", title: "5 free AI tools every student should be using", blurb: "Notes, flashcards and research in a fraction of the time.", tools: ["ChatGPT", "NotebookLM", "Perplexity"] },
+        { id: "", title: "I made a YouTube Short start to finish with only AI", blurb: "Script, voice, edit and thumbnail. Here's the whole workflow.", tools: ["Claude", "ElevenLabs", "CapCut"] },
+        { id: "", title: "ChatGPT vs Claude vs Gemini: which one should you use?", blurb: "Same prompts, side by side, honest results.", tools: ["ChatGPT", "Claude", "Gemini"] },
+        { id: "", title: "Build a website in 10 minutes without knowing how to code", blurb: "From blank page to live link with an AI coding tool.", tools: ["Cursor", "Claude"] }
+      ],
+
+      // category is used for the filter buttons
+      tools: [
+        { name: "ChatGPT",    category: "Chat & research", price: "free", why: "Everyday brainstorming, quick answers and first drafts.",          url: "https://chatgpt.com",           color: "#10a37f" },
+        { name: "Claude",     category: "Chat & research", price: "free", why: "Long writing, coding help and making sense of big documents.",     url: "https://claude.ai",             color: "#d97757" },
+        { name: "Perplexity", category: "Chat & research", price: "free", why: "Research with sources, so you can check what it says.",          url: "https://www.perplexity.ai",     color: "#20b8cd" },
+        { name: "NotebookLM", category: "Study",           price: "free", why: "Drop in lecture notes, get summaries, quizzes and a podcast.",   url: "https://notebooklm.google.com", color: "#4285f4" },
+        { name: "Gemini",     category: "Chat & research", price: "free", why: "Works inside Google Docs, Gmail and Drive.",                       url: "https://gemini.google.com",     color: "#a78bfa" },
+        { name: "CapCut",     category: "Video",           price: "free", why: "Auto captions and quick edits for Shorts and TikToks.",           url: "https://www.capcut.com",        color: "#111111" },
+        { name: "Descript",   category: "Video",           price: "paid", why: "Edit video by editing the transcript. Kills filler words.",       url: "https://www.descript.com",      color: "#f5a623" },
+        { name: "Runway",     category: "Video",           price: "paid", why: "Text and image to video for B-roll and visual effects.",          url: "https://runwayml.com",          color: "#5b5bd6" },
+        { name: "ElevenLabs", category: "Audio",           price: "free", why: "Realistic voiceovers when you don't want to record.",            url: "https://elevenlabs.io",         color: "#222222" },
+        { name: "Midjourney", category: "Images",          price: "paid", why: "The best-looking AI images for thumbnails and art.",             url: "https://www.midjourney.com",    color: "#ff4fd8" },
+        { name: "Canva",      category: "Images",          price: "free", why: "Thumbnails and graphics with built-in AI features.",             url: "https://www.canva.com",         color: "#7d5cff" },
+        { name: "Cursor",     category: "Build",           price: "free", why: "AI code editor. Build sites and apps by describing them.",       url: "https://www.cursor.com",        color: "#3a3a3a" }
+      ],
+
+      about: [
+        "I test AI tools so you don't have to waste your time (or your money) on the ones that don't deliver.",
+        "Every video is short and practical: what the tool does, how to use it today, and whether the free version is enough. Made for students, creators and anyone building something on the side."
+      ]
+    };
+
+
+    // ---------- render (no need to edit below) ----------
+    const $ = (id) => document.getElementById(id);
+    const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    const subUrl = CHANNEL.youtube + "?sub_confirmation=1";
+    const gradients = [
+      "linear-gradient(135deg,#7b2ff7,#f107a3)",
+      "linear-gradient(135deg,#ff8a00,#f107a3)",
+      "linear-gradient(135deg,#0a66ff,#00c6ff)",
+      "linear-gradient(135deg,#00b86b,#0a66ff)"
+    ];
+
+    $("brand-icon").textContent = CHANNEL.initials;
+    $("brand-name").textContent = CHANNEL.name;
+    $("avatar").innerHTML = CHANNEL.avatar ? `<img src="${esc(CHANNEL.avatar)}" alt="${esc(CHANNEL.name)}">` : esc(CHANNEL.initials);
+    $("name").textContent = CHANNEL.name;
+    $("handle").textContent = CHANNEL.handle;
+    $("tagline").innerHTML = CHANNEL.tagline;
+    $("subscribe").href = subUrl;
+    $("subscribe-top").href = subUrl;
+
+    const freeCount = CHANNEL.tools.filter((t) => t.price !== "paid").length;
+    $("stats").innerHTML = `
+      <div><strong>${CHANNEL.tools.length}</strong>AI tools</div>
+      <div><strong>${freeCount}</strong>free plans</div>
+      <div><strong>${CHANNEL.videos.length}</strong>videos</div>`;
+
+    $("links-list").innerHTML = CHANNEL.links.map((l) => `
+      <a class="link${l.url ? "" : " soon"}" ${l.url ? `href="${esc(l.url)}" target="_blank" rel="noopener"` : `aria-disabled="true"`}>
+        <span class="icon" style="background:${esc(l.color || "#111")}" aria-hidden="true">${l.icon}</span>
+        <span><span class="label">${esc(l.label)}</span><br><span class="sub">${esc(l.sub)}</span></span>
+        ${l.url ? `<span class="chev" aria-hidden="true">›</span>` : `<span class="pill-soon">Soon</span>`}
+      </a>`).join("");
+
+    $("videos-list").innerHTML = CHANNEL.videos.map((v, i) => `
+      <article class="card video">
+        ${v.id
+          ? `<button class="thumb" data-id="${esc(v.id)}" aria-label="Play: ${esc(v.title)}" style="background-image:url('https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg')"><span class="play"></span></button>`
+          : `<div class="thumb placeholder" style="background:${gradients[i % gradients.length]}"><span class="badge">Coming soon</span><span class="ph-label">${esc(v.title)}</span></div>`}
+        <div class="meta">
+          <h3>${esc(v.title)}</h3>
+          <p>${esc(v.blurb)}</p>
+          <div class="chips">${(v.tools || []).map((t) => `<span class="chip">${esc(t)}</span>`).join("")}</div>
+        </div>
+      </article>`).join("");
+
+    // Load the YouTube player only when tapped, so the page stays fast.
+    $("videos-list").addEventListener("click", (e) => {
+      const btn = e.target.closest("button.thumb");
+      if (!btn) return;
+      btn.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${btn.dataset.id}?autoplay=1&rel=0" title="${btn.getAttribute("aria-label")}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+      btn.style.cursor = "default";
+    });
+
+    const categories = ["All", ...new Set(CHANNEL.tools.map((t) => t.category))];
+    let active = "All";
+    function renderTools() {
+      const list = CHANNEL.tools.filter((t) => active === "All" || t.category === active);
+      $("tools-count").textContent = `${CHANNEL.tools.length} picks`;
+      $("filters").innerHTML = categories.map((c) => `<button class="filter" aria-pressed="${c === active}">${esc(c)}</button>`).join("");
+      $("tools-list").innerHTML = list.map((t, i) => `
+        <a class="tool" href="${esc(t.url)}" target="_blank" rel="noopener">
+          <span class="rank">${i + 1}</span>
+          <span class="logo" style="background:${esc(t.color)}" aria-hidden="true">${esc(t.name[0])}</span>
+          <span class="info">
+            <span class="name">${esc(t.name)}</span><br>
+            <span class="cat">${esc(t.category)}</span>
+            <span class="why" style="display:block">${esc(t.why)}</span>
+          </span>
+          <span><span class="get">GET</span><span class="price-note">${t.price === "paid" ? "Paid" : "Free plan"}</span></span>
+        </a>`).join("");
+    }
+    $("filters").addEventListener("click", (e) => {
+      const b = e.target.closest("button.filter");
+      if (!b) return;
+      active = b.textContent;
+      renderTools();
+    });
+    renderTools();
+
+    // Highlight the bottom tab for the section on screen.
+    const tabs = [...document.querySelectorAll(".tabbar a")];
+    const watch = ["links", "videos", "tools"].map((id) => $(id));
+    const onScroll = () => {
+      let current = "top";
+      for (const el of watch) if (el.getBoundingClientRect().top < innerHeight * 0.4) current = el.id;
+      if (scrollY < 200) current = "top";
+      tabs.forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + current));
+    };
+    addEventListener("scroll", onScroll, { passive: true });
+
+    $("about-text").innerHTML = CHANNEL.about.map((p) => `<p>${esc(p)}</p>`).join("");
+    $("footer").innerHTML = `© ${new Date().getFullYear()} ${esc(CHANNEL.name)}`;
+  </script>
 </body>
 </html>
